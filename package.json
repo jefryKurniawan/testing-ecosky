@@ -1,0 +1,20 @@
+{
+  "name": "ecosky-e2e",
+  "version": "1.0.0",
+  "description": "E2E tests for ecosky.id using Bun and Playwright with Brave browser",
+  "main": "index.ts",
+  "scripts": {
+    "test": "bunx playwright test",
+    "test:headed": "bunx playwright test --headed",
+    "test:ui": "bunx playwright test --ui",
+    "test:debug": "bunx playwright test --debug",
+    "test:brave": "bunx playwright test --project=brave",
+    "test:brave:headed": "bunx playwright test --project=brave --headed",
+    "install:playwright": "bunx playwright install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "@types/bun": "latest"
+  },
+  "trustedDependencies": ["@playwright/test"]
+}
