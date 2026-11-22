@@ -1,55 +1,55 @@
 # EcoSky E2E Tests
 
-End-to-end tests for **[EcoSky](https://ecosky.id)** — turning used cooking oil into sustainable aviation fuel. 🌱✈️
+End-to-end tests untuk **[EcoSky](https://ecosky.id)** — ngubah minyak goreng bekas jadi penerbangan berkelanjutan. 🌱✈️
 
 ---
 
-## The Story Behind the Stack
+## Cerita di Balik Tech Stack (No Cap)
 
-Ecosky.id wasn't built by chasing hype. It was built by a small team solving a real problem: **Indonesia produces massive amounts of used cooking oil, and most of it gets dumped or reused dangerously.** We needed a platform that could track every liter from kitchen to jet engine — reliably, transparently, at scale.
+Ecosky.id bukan dibangun karena FOMO ikut hype. Dibangun tim kecil yang *actually* solve masalah nyata: **Indonesia produce minyak goreng bekas (UCO) masif, dan kebanyakan dibuang sembarangan atau dipakai ulang berbahaya.** Butuh platform yang bisa track setiap liter dari dapur ke mesin jet — andal, transparan, scalable.
 
-### Laravel — The Backbone
-We chose Laravel not because it's trendy, but because it *stays out of the way*. Eloquent makes the complex UCO→SAF supply chain readable. Queues handle async pickup scheduling. Policies gate partner access. The ecosystem (Sanctum, Telescope, Pulse) means we ship features, not glue code. Zero regrets.
+### Laravel — The Real MVP (Backbone)
+Pilih Laravel bukan karena trend, tapi karena *stay out of the way*. Eloquent bikin supply chain UCO→SAF yang kompleks jadi readable banget. Queues handle jadwal pickup async. Policies gate akses partner. Ecosystem-nya (Sanctum, Telescope, Pulse) berarti kita ship fitur, bukan ngelebih-lebihin glue code. Zero regrets, no cap.
 
-### Alpine.js — Just Enough Reactivity
-No virtual DOM. No build step for interactivity. Alpine lives in the blade templates, sprinkles reactivity exactly where needed — dropdowns, modals, mobile nav, counter animations. 15kb gzipped. The team learns it in an afternoon. It respects the server-rendered HTML instead of fighting it.
+### Alpine.js — Reaktivitas Secukupnya, Nggak Lebay
+Nggak ada virtual DOM. Nggak ada build step untuk interaktivitas. Alpine stay di blade templates, taburkan reaktivitas di tempat yang butuh aja — dropdown, modal, mobile nav, animasi counter. 15kb gzipped only. Tim belajarnya sebentar. Dia hormatin server-rendered HTML bukan lawan. Simple but powerful.
 
-### Tailwind CSS — Design System in Config
-Custom design tokens (EcoSky greens `#1F7A63`, `#4F936B`, `#E9F2EF`) live in `tailwind.config.js`. Dark mode? One class. Responsive? Mobile-first utilities. No context-switching between HTML and CSS files. The 5-step process cards, floating stat cards, dropdown menus — all built without writing a single custom CSS file.
+### Tailwind CSS — Design System di Config, Zero Drama
+Custom design tokens (hijau EcoSky `#1F7A63`, `#4F936B`, `#E9F2EF`) stay di `tailwind.config.js`. Dark mode? Satu class. Responsive? Mobile-first utilities. Nggak perlu context-switch antara HTML dan CSS. Kartu proses 5-step, floating stat cards, dropdown menu — semua dibangun tanpa nulis satu file CSS custom pun. Clean.
 
-### Hostinger — Boring Infrastructure That Works
-VPS + CyberPanel. SSL auto-renew. Backups scheduled. PHP 8.3, Redis, MySQL 8 — all managed. Costs less than a team lunch. We deploy via GitHub Actions → SSH → `php artisan migrate --force`. Zero Kubernetes YAML, zero 3am paging.
+### Hostinger — Infra Boring Yang Work, Nggak Ribet
+VPS + CyberPanel. SSL auto-renew. Backup terjadwal. PHP 8.3, Redis, MySQL 8 — semua managed. Harganya kurang dari makan siang tim. Deploy via GitHub Actions → SSH → `php artisan migrate --force`. Zero Kubernetes YAML, zero panggilan jam 3 pagi. Sleep well.
 
-### WhatsApp Business API — Where the Partners Actually Are
-Restaurants and hotels in Indonesia don't check email. They check WhatsApp. Pickup confirmations, schedule changes, volume reports — all flow through WA templates. Meta's Cloud API means no on-premise gateway to maintain. Webhook → Laravel job → partner notified in seconds.
+### WhatsApp Business API — Di Mana Partner Sebenarnya (Bukan Email)
+Restoran dan hotel di Indonesia nggak cek email. Mereka cek WhatsApp. Konfirmasi pickup, perubahan jadwal, laporan volume — semua lewat WA templates. Meta Cloud API berarti nggak perlu gateway on-premise buat maintain. Webhook → Laravel job → partner ke-notifikasi dalam detik. Real talk.
 
-### Google Fonts — Inter + Manrope + Montserrat
-Inter for UI density. Manrope for numbers that need personality (those animated counters). Montserrat for headers that command attention. Variable fonts, preloaded, subset for Latin — ~40kb total. Performance budget respected.
+### Google Fonts — Inter + Manrope + Montserrat, Aesthetic & Performant
+Inter untuk UI density. Manrope untuk angka yang butuh personality (counter animasi). Montserrat untuk heading yang nangkep perhatian. Variable fonts, preloaded, subset Latin — ~40kb total. Performance budget terjaga. Looking good, loading fast.
 
-### AI — The Intern That Never Sleeps
-Cursor for boilerplate. ChatGPT for regex, SQL optimization, Tailwind config debugging, test data generation. Copilot for the mundane. We review every line. AI writes the first draft; humans make it production. The "AI slop" label? That's the stuff we *rejected*.
+### AI — Intern Yang Nggak Tidur, Tapi Kita Yang Review
+Cursor untuk boilerplate. ChatGPT untuk regex, optimasi SQL, debug config Tailwind, generate test data. Copilot untuk yang mundane. Kita review setiap baris. AI nulis draft pertama; manusia bikin production. Label "AI slop"? Itu yang kita *tolak*. We use AI, we don't let AI use us.
 
 ---
 
-## Prerequisites
+## Prasyarat (Setup Dulu)
 
 - [Bun](https://bun.sh/) v1.0+
-- [Brave Browser](https://brave.com/) installed
+- [Brave Browser](https://brave.com/) terinstall
 
-## Installation
+## Instalasi
 
 ```bash
 bun install
-bun run install:playwright  # optional, for other browsers
+bun run install:playwright  # opsional, untuk browser lain
 ```
 
-## Running Tests
+## Menjalankan Test (Gas)
 
 ```bash
-# All tests, headless Brave
+# Semua test, headless Brave
 bun test
 
-# Headed (see the browser)
+# Headed (lihat browsernya)
 bun run test:headed
 
 # Playwright UI mode
@@ -71,20 +71,20 @@ k6 run load-tests/load-test.js
 BASE_URL=https://staging.ecosky.id k6 run load-tests/load-test.js
 ```
 
-## Test Architecture
+## Arsitektur Test (Clean Architecture)
 
 ```
 tests/
-├── config/env.ts           # Centralized config (ENV, VIEWPORTS, TEST_USER)
+├── config/env.ts           # Config terpusat (ENV, VIEWPORTS, TEST_USER)
 ├── pages/
-│   ├── BasePage.ts         # Abstract base — common utilities
-│   ├── HomePage.ts         # Page object with OR-selectors (resilient)
+│   ├── BasePage.ts         # Base abstract — utilities umum
+│   ├── HomePage.ts         # Page object dengan OR-selectors (resilient)
 │   └── index.ts
 ├── fixtures/
-│   ├── test-data.ts        # Constants, not magic strings
+│   ├── test-data.ts        # Konstanta, bukan magic strings
 │   └── index.ts
-├── home.spec.ts            # 14 tests: homepage, 5-step process, perf, structure
-└── features.spec.ts        # 14 tests: nav, solutions, contact, SEO, a11y, social, cross-browser
+├── home.spec.ts            # 14 test: homepage, proses 5-step, perf, structure
+└── features.spec.ts        # 14 test: nav, solutions, contact, SEO, a11y, social, cross-browser
 load-tests/
 └── load-test.js            # k6: ramp stages, thresholds, custom metrics
 ```
@@ -93,22 +93,22 @@ load-tests/
 
 - **playwright.config.ts** — Brave desktop + mobile (Pixel 5), 2 retries, trace on failure
 - **Base URL:** `https://ecosky.id` (override via `E2E_BASE_URL`)
-- **OR-selectors** — handle markup variations without brittle tests
+- **OR-selectors** — handle variasi markup tanpa test brittle
 - **Page Object Model** — single responsibility, reusable, maintainable
 
-## Coverage: 28 Tests Passing
+## Coverage: 28 Test Passing ✅
 
-| Area | Tests | What's Covered |
-|------|-------|----------------|
-| Homepage | 6 | Load, title, hero, 5-step process, CTAs, nav |
-| Structure | 4 | Semantics, meta, headings, images |
+| Area | Tests | Yang Dicover |
+|------|-------|--------------|
+| Homepage | 6 | Load, title, hero, proses 5-step, CTAs, nav |
+| Structure | 4 | Semantik, meta, heading, images |
 | Performance | 4 | Load time, resources, CWV, memory |
-| Navigation | 3 | Dropdowns: Platform, Solutions, Resources, Programs |
+| Navigation | 3 | Dropdown: Platform, Solutions, Resources, Programs |
 | Solutions | 2 | UCO Collection, SAF, Carbon Reduction |
-| Contact/Form | 3 | Page, forms, validation |
+| Contact/Form | 3 | Halaman, forms, validasi |
 | SEO | 2 | Meta tags, JSON-LD |
 | Accessibility | 2 | Landmarks, keyboard, contrast |
-| Social | 1 | LinkedIn, Instagram, etc. |
+| Social | 1 | LinkedIn, Instagram, dll |
 | Cross-browser | 1 | Desktop + Mobile viewports |
 
 ---
@@ -121,7 +121,7 @@ Thresholds: p95 < 2s, error rate < 5%
 Metrics:   Custom Rate, Trend, Counter + setup/teardown
 ```
 
-> **Pro tip:** Run against staging in CI. Production will rate-limit you.
+> **Pro tip:** Jalankan against staging di CI. Production bakal rate-limit lu.
 
 ---
 
@@ -138,24 +138,26 @@ HTML reports → `playwright-report/` → `bunx playwright show-report`
 
 ---
 
-## Writing New Tests
+## Nulis Test Baru (Best Practices)
 
-1. New `.spec.ts` in `tests/`
+1. `.spec.ts` baru di `tests/`
 2. Import `@playwright/test`
-3. Extend `BasePage` for page objects
-4. Follow `home.spec.ts` / `features.spec.ts` patterns
-5. Use OR-selectors for resilience
+3. Extend `BasePage` untuk page objects
+4. Ikuti pattern `home.spec.ts` / `features.spec.ts`
+5. Pakai OR-selectors biar resilient
 
 ---
 
-## Troubleshooting
+## Troubleshooting (Kalau Error)
 
-**Brave not found?** Install it. Playwright detects via `channel: 'brave'`.
+**Brave nggak ketemu?** Install aja. Playwright deteksi via `channel: 'brave'`.
 
-**Timeout?** Bump in config or per-test: `test.setTimeout(60000)`
+**Timeout?** Naikin di config atau per-test: `test.setTimeout(60000)`
 
 **Selector flaky?** `bunx playwright codegen https://ecosky.id`
 
 ---
 
-**EcoSky** — Waste to wing. Built with boring tech that ships. 🚀
+**EcoSky** — Dari limbah ke sayap. Dibangun pakai tech boring yang deliver. 🚀
+
+*No AI slop here. Just code that works.*
