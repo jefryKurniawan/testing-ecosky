@@ -1,131 +1,142 @@
 # EcoSky E2E Tests
 
-End-to-end tests untuk **[EcoSky](https://ecosky.id)** — ngubah minyak goreng bekas jadi penerbangan berkelanjutan. 🌱✈️
+Repository ini berisi **end-to-end (E2E) test** untuk website **[EcoSky](https://ecosky.id)** — platform yang mengubah minyak goreng bekas (UCO) menjadi bahan bakar penerbangan berkelanjutan (SAF).
 
 ---
 
-## Cerita di Balik Tech Stack (No Cap)
+## Apa Itu EcoSky?
 
-Ecosky.id bukan dibangun karena FOMO ikut hype. Dibangun tim kecil yang *actually* solve masalah nyata: **Indonesia produce minyak goreng bekas (UCO) masif, dan kebanyakan dibuang sembarangan atau dipakai ulang berbahaya.** Butuh platform yang bisa track setiap liter dari dapur ke mesin jet — andal, transparan, scalable.
+EcoSky adalah platform yang menghubungkan restoran, hotel, dan industri dengan sistem energi sirkular. Minyak goreng bekas dikumpulkan, diproses, dan diubah menjadi bahan bakar penerbangan (Sustainable Aviation Fuel) yang berkarbon rendah.
 
-### Laravel — The Real MVP (Backbone)
-Pilih Laravel bukan karena trend, tapi karena *stay out of the way*. Eloquent bikin supply chain UCO→SAF yang kompleks jadi readable banget. Queues handle jadwal pickup async. Policies gate akses partner. Ecosystem-nya (Sanctum, Telescope, Pulse) berarti kita ship fitur, bukan ngelebih-lebihin glue code. Zero regrets, no cap.
+**Fitur utama:**
+- **UCO Collection** — Penjemputan minyak bekas dari restoran & hotel
+- **Sustainable Aviation Fuel (SAF)** — Bahan bakar penerbangan ramah lingkungan
+- **Carbon Reduction Platform** — Pelacakan & verifikasi dampak karbon
+- **Digital Platform** — Monitoring real-time, optimasi logistik, traceability UCO
 
-### Alpine.js — Reaktivitas Secukupnya, Nggak Lebay
-Nggak ada virtual DOM. Nggak ada build step untuk interaktivitas. Alpine stay di blade templates, taburkan reaktivitas di tempat yang butuh aja — dropdown, modal, mobile nav, animasi counter. 15kb gzipped only. Tim belajarnya sebentar. Dia hormatin server-rendered HTML bukan lawan. Simple but powerful.
-
-### Tailwind CSS — Design System di Config, Zero Drama
-Custom design tokens (hijau EcoSky `#1F7A63`, `#4F936B`, `#E9F2EF`) stay di `tailwind.config.js`. Dark mode? Satu class. Responsive? Mobile-first utilities. Nggak perlu context-switch antara HTML dan CSS. Kartu proses 5-step, floating stat cards, dropdown menu — semua dibangun tanpa nulis satu file CSS custom pun. Clean.
-
-### Hostinger — Infra Boring Yang Work, Nggak Ribet
-VPS + CyberPanel. SSL auto-renew. Backup terjadwal. PHP 8.3, Redis, MySQL 8 — semua managed. Harganya kurang dari makan siang tim. Deploy via GitHub Actions → SSH → `php artisan migrate --force`. Zero Kubernetes YAML, zero panggilan jam 3 pagi. Sleep well.
-
-### WhatsApp Business API — Di Mana Partner Sebenarnya (Bukan Email)
-Restoran dan hotel di Indonesia nggak cek email. Mereka cek WhatsApp. Konfirmasi pickup, perubahan jadwal, laporan volume — semua lewat WA templates. Meta Cloud API berarti nggak perlu gateway on-premise buat maintain. Webhook → Laravel job → partner ke-notifikasi dalam detik. Real talk.
-
-### Google Fonts — Inter + Manrope + Montserrat, Aesthetic & Performant
-Inter untuk UI density. Manrope untuk angka yang butuh personality (counter animasi). Montserrat untuk heading yang nangkep perhatian. Variable fonts, preloaded, subset Latin — ~40kb total. Performance budget terjaga. Looking good, loading fast.
-
-### AI — Intern Yang Nggak Tidur, Tapi Kita Yang Review
-Cursor untuk boilerplate. ChatGPT untuk regex, optimasi SQL, debug config Tailwind, generate test data. Copilot untuk yang mundane. Kita review setiap baris. AI nulis draft pertama; manusia bikin production. Label "AI slop"? Itu yang kita *tolak*. We use AI, we don't let AI use us.
+**Program:**
+- EcoSky Goes To School
+- School Sustainability Partnership
+- Restaurant & Cafe Sustainability Partnership
+- Hospitality Sustainability Partnership
+- Kitchen Sustainability Partnership
 
 ---
 
-## Prasyarat (Setup Dulu)
+## Tech Stack Website EcoSky (ecosky.id)
 
-- [Bun](https://bun.sh/) v1.0+
-- [Brave Browser](https://brave.com/) terinstall
+| Lapisan | Teknologi | Alasan Dipakai |
+|---------|-----------|----------------|
+| **Backend** | Laravel | Framework PHP yang solid, Eloquent ORM memudahkan manajemen data kompleks, ecosystem lengkap (Sanctum, Telescope, Pulse) |
+| **Frontend** | Alpine.js + Tailwind CSS | Alpine.js ringan (15kb) untuk interaktivitas sederhana (dropdown, modal), Tailwind CSS untuk styling cepat via utility classes |
+| **Hosting** | Hostinger VPS + CyberPanel | Murah, managed, SSL auto-renew, backup otomatis, support PHP 8.3/Redis/MySQL 8 |
+| **Komunikasi** | WhatsApp Business API (Meta Cloud) | Partner (restoran/hotel) di Indonesia aktif di WhatsApp, tidak email. Notifikasi real-time via WA |
+| **Font** | Google Fonts (Inter, Manrope, Montserrat) | Inter untuk UI, Manrope untuk angka/animasi, Montserrat untuk heading. Total ~40kb |
+| **AI** | Cursor, ChatGPT, GitHub Copilot | Dipakai untuk boilerplate, debug, generate test data. Semua kode direview manusia sebelum production |
+
+---
+
+## Prasyarat
+
+- [Bun](https://bun.sh/) versi 1.0 atau lebih baru
+- [Brave Browser](https://brave.com/) sudah terinstall di komputer
 
 ## Instalasi
 
 ```bash
+# Install dependencies
 bun install
-bun run install:playwright  # opsional, untuk browser lain
+
+# Optional: install browser lain untuk Playwright
+bun run install:playwright
 ```
 
-## Menjalankan Test (Gas)
+## Menjalankan Test
 
 ```bash
-# Semua test, headless Brave
+# Jalankan semua test (headless, tidak ada UI browser)
 bun test
 
-# Headed (lihat browsernya)
+# Jalankan dengan UI browser terlihat
 bun run test:headed
 
-# Playwright UI mode
+# Mode UI Playwright (interaktif)
 bun run test:ui
 
 # Debug step-by-step
 bun run test:debug
 
-# Single file / single test
+# Jalankan file test tertentu
 bun test tests/home.spec.ts
+
+# Jalankan test tertentu berdasarkan nama
 bun test -t "should load homepage successfully"
 
-# Brave desktop only
+# Hanya test desktop Brave
 bun run test:brave
 bun run test:brave:headed
 
-# Load test (k6)
+# Load test dengan k6
 k6 run load-tests/load-test.js
+# Atau dengan URL custom (misal staging)
 BASE_URL=https://staging.ecosky.id k6 run load-tests/load-test.js
 ```
 
-## Arsitektur Test (Clean Architecture)
+## Struktur Folder Test
 
 ```
 tests/
-├── config/env.ts           # Config terpusat (ENV, VIEWPORTS, TEST_USER)
+├── config/env.ts           # Konfigurasi terpusat (URL, viewport, user test)
 ├── pages/
-│   ├── BasePage.ts         # Base abstract — utilities umum
-│   ├── HomePage.ts         # Page object dengan OR-selectors (resilient)
-│   └── index.ts
+│   ├── BasePage.ts         # Class dasar dengan fungsi umum
+│   ├── HomePage.ts         # Page object halaman utama (selector fleksibel)
+│   └── index.ts            # Export semua page object
 ├── fixtures/
-│   ├── test-data.ts        # Konstanta, bukan magic strings
+│   ├── test-data.ts        # Data test (konstanta, bukan hardcode)
 │   └── index.ts
-├── home.spec.ts            # 14 test: homepage, proses 5-step, perf, structure
-└── features.spec.ts        # 14 test: nav, solutions, contact, SEO, a11y, social, cross-browser
+├── home.spec.ts            # 14 test: homepage, struktur, performa, proses 5-step
+└── features.spec.ts        # 14 test: navigasi, solusi, kontak, SEO, aksesibilitas, social, cross-browser
 load-tests/
-└── load-test.js            # k6: ramp stages, thresholds, custom metrics
+└── load-test.js            # k6 load test: ramp stages, thresholds, custom metrics
 ```
 
-## Config Highlights
+## Konfigurasi Penting
 
-- **playwright.config.ts** — Brave desktop + mobile (Pixel 5), 2 retries, trace on failure
-- **Base URL:** `https://ecosky.id` (override via `E2E_BASE_URL`)
-- **OR-selectors** — handle variasi markup tanpa test brittle
-- **Page Object Model** — single responsibility, reusable, maintainable
+- **playwright.config.ts** — Konfigurasi Playwright: Brave desktop + mobile (Pixel 5), 2x retry jika gagal, simpan trace saat error
+- **Base URL:** `https://ecosky.id` (bisa diubah via environment variable `E2E_BASE_URL`)
+- **OR-selectors** — Selector fleksibel yang tahan terhadap perubahan markup HTML
+- **Page Object Model** — Setiap halaman punya file sendiri, mudah dipelihara
 
-## Coverage: 28 Test Passing ✅
+## Coverage Test: 28 Test Lolos ✅
 
-| Area | Tests | Yang Dicover |
-|------|-------|--------------|
-| Homepage | 6 | Load, title, hero, proses 5-step, CTAs, nav |
-| Structure | 4 | Semantik, meta, heading, images |
-| Performance | 4 | Load time, resources, CWV, memory |
-| Navigation | 3 | Dropdown: Platform, Solutions, Resources, Programs |
-| Solutions | 2 | UCO Collection, SAF, Carbon Reduction |
-| Contact/Form | 3 | Halaman, forms, validasi |
-| SEO | 2 | Meta tags, JSON-LD |
-| Accessibility | 2 | Landmarks, keyboard, contrast |
-| Social | 1 | LinkedIn, Instagram, dll |
-| Cross-browser | 1 | Desktop + Mobile viewports |
+| Area | Jumlah Test | Yang Diuji |
+|------|-------------|------------|
+| Homepage | 6 | Load halaman, judul, hero section, proses 5-step, tombol CTA, navigasi |
+| Struktur HTML | 4 | Semantik, meta tags, heading, gambar |
+| Performa | 4 | Waktu load, resource, Core Web Vitals, memori |
+| Navigasi | 3 | Dropdown: Platform, Solutions, Resources, Programs |
+| Solusi | 2 | Halaman UCO Collection, SAF, Carbon Reduction |
+| Kontak & Form | 3 | Halaman kontak, form, validasi |
+| SEO | 2 | Meta tags, structured data (JSON-LD) |
+| Aksesibilitas | 2 | Landmark, navigasi keyboard, kontras warna |
+| Social Media | 1 | Link LinkedIn, Instagram, dll |
+| Cross-browser | 1 | Desktop + Mobile viewport |
 
 ---
 
-## k6 Load Test — Production Ready
+## Load Test (k6) — Siap Production
 
 ```
-Stages:  30s→10 VUs → 1m→50 VUs → 30s→100 VUs → 2m sustain → 30s ramp-down
-Thresholds: p95 < 2s, error rate < 5%
-Metrics:   Custom Rate, Trend, Counter + setup/teardown
+Tahapan beban: 30s→10 user → 1m→50 user → 30s→100 user → 2m sustain → 30s ramp-down
+Batas (thresholds): p95 < 2 detik, error rate < 5%
+Metrik: Custom Rate, Trend, Counter + setup/teardown
 ```
 
-> **Pro tip:** Jalankan against staging di CI. Production bakal rate-limit lu.
+> **Tips:** Untuk CI/CD, jalankan load test terhadap **staging environment**, bukan production (production akan rate-limit).
 
 ---
 
-## CI/CD Example
+## Contoh CI/CD (GitHub Actions)
 
 ```yaml
 - uses: actions/checkout@v4
@@ -134,30 +145,40 @@ Metrics:   Custom Rate, Trend, Counter + setup/teardown
 - run: bun test
 ```
 
-HTML reports → `playwright-report/` → `bunx playwright show-report`
+Hasil report HTML ada di folder `playwright-report/` setelah test selesai.
+Lihat dengan: `bunx playwright show-report`
 
 ---
 
-## Nulis Test Baru (Best Practices)
+## Menulis Test Baru (Best Practice)
 
-1. `.spec.ts` baru di `tests/`
+1. Buat file `.spec.ts` baru di folder `tests/`
 2. Import `@playwright/test`
-3. Extend `BasePage` untuk page objects
-4. Ikuti pattern `home.spec.ts` / `features.spec.ts`
-5. Pakai OR-selectors biar resilient
+3. Extend `BasePage` untuk page object baru
+4. Ikuti pola yang ada di `home.spec.ts` dan `features.spec.ts`
+5. Gunakan OR-selectors agar test tidak mudah patah (brittle)
 
 ---
 
-## Troubleshooting (Kalau Error)
+## Troubleshooting
 
-**Brave nggak ketemu?** Install aja. Playwright deteksi via `channel: 'brave'`.
+**Brave Browser tidak ditemukan?**
+Install Brave Browser. Playwright akan otomatis mendeteksi via `channel: 'brave'`.
 
-**Timeout?** Naikin di config atau per-test: `test.setTimeout(60000)`
+**Test timeout?**
+Tambah timeout di `playwright.config.ts` atau per test:
+```typescript
+test.setTimeout(60000) // 60 detik
+```
 
-**Selector flaky?** `bunx playwright codegen https://ecosky.id`
+**Selector flaky / tidak stabil?**
+Gunakan Playwright codegen untuk generate selector yang akurat:
+```bash
+bunx playwright codegen https://ecosky.id
+```
 
 ---
 
-**EcoSky** — Dari limbah ke sayap. Dibangun pakai tech boring yang deliver. 🚀
+**EcoSky** — Mengubah limbah jadi energi penerbangan. Dibangun dengan teknologi praktis yang delivers.
 
-*No AI slop here. Just code that works.*
+*Repository ini hanya berisi test otomatis. Kode website EcoSky berada di repository terpisah.*
