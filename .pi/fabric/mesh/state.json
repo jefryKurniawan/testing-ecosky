@@ -17,12 +17,12 @@
         "model": "nvidia/nvidia/nemotron-3-ultra-550b-a55b",
         "thinking": "high",
         "startedAt": 1795328211098,
-        "updatedAt": 1795331576695,
+        "updatedAt": 1795331591716,
         "pendingMessages": false,
         "local": false
       },
-      "version": 675,
-      "updatedAt": 1795331576697,
+      "version": 678,
+      "updatedAt": 1795331591717,
       "updatedBy": {
         "id": "session:01a201e5-b94b-75a2-83fc-8f04a2b9a653",
         "name": "main",
@@ -53,14 +53,14 @@
         "model": "nvidia/nvidia/nemotron-3-ultra-550b-a55b",
         "thinking": "high",
         "startedAt": 1795328211098,
-        "updatedAt": 1795331576695,
+        "updatedAt": 1795331591716,
         "pendingMessages": false,
         "controlProtocol": "v1",
         "ownerIncarnation": "a9b72953-0815-4336-9918-9304b7eb61ec",
         "label": "ECO-1"
       },
-      "version": 676,
-      "updatedAt": 1795331576699,
+      "version": 679,
+      "updatedAt": 1795331591718,
       "updatedBy": {
         "id": "session:01a201e5-b94b-75a2-83fc-8f04a2b9a653",
         "name": "main",
@@ -81,11 +81,11 @@
           "sessionId": "01a201e5-b94b-75a2-83fc-8f04a2b9a653"
         },
         "startedAt": 1795328211099,
-        "updatedAt": 1795331576700,
-        "expiresAt": 1795331591700
+        "updatedAt": 1795331591719,
+        "expiresAt": 1795331606719
       },
-      "version": 675,
-      "updatedAt": 1795331576701,
+      "version": 678,
+      "updatedAt": 1795331591720,
       "updatedBy": {
         "id": "session:01a201e5-b94b-75a2-83fc-8f04a2b9a653",
         "name": "main",
@@ -109,11 +109,11 @@
       }
     }
   },
-  "highWater": 2024,
+  "highWater": 2033,
   "versions": {
-    "sessions/01a201e5-b94b-75a2-83fc-8f04a2b9a653": 675,
-    "topology/participants/751dc52edfbbba9896700ec68bb5009e3df245f8da5419698105fd5b851ed9c7": 676,
-    "topology/hosts/751dc52edfbbba9896700ec68bb5009e3df245f8da5419698105fd5b851ed9c7": 675,
+    "sessions/01a201e5-b94b-75a2-83fc-8f04a2b9a653": 678,
+    "topology/participants/751dc52edfbbba9896700ec68bb5009e3df245f8da5419698105fd5b851ed9c7": 679,
+    "topology/hosts/751dc52edfbbba9896700ec68bb5009e3df245f8da5419698105fd5b851ed9c7": 678,
     "topology/peer-seq/3": 4
   },
   "tombstoneOrder": []
